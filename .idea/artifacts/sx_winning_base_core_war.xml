@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sx-winning-base-core:war">
+    <output-path>$PROJECT_DIR$/sx-winning-base-core/target</output-path>
+    <root id="archive" name="sx-winning-base-core-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="sx-winning-base-core:war exploded" />
+    </root>
+  </artifact>
+</component>

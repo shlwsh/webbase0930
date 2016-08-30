@@ -1,0 +1,26 @@
+此项目为基础项目，只做参考。不同业务建议新建Porject，配置及部分代码可以拷贝。
+新建项目步骤
+一、新建Porject：
+    artifactId：sx-winning-[业务简称]
+    groupId：com.winning.sx
+二、在Porject中新建Module
+    sx-winning-[业务简称]-common：通用代码（建议放一些通用的不常改变的代码，比如Response返回等）
+    sx-winning-[业务简称]-core：业务处理及数据访问
+    sx-winning-[业务简称]-web：表现层
+三、在sx-winning-[业务简称]-core中新建Package
+    com.winning.sx.[业务简称].model：实体层
+    com.winning.sx.[业务简称].service：业务处理层（建议将有关业务逻辑放到此层，比如校验、加密等）
+    com.winning.sx.[业务简称].dao：数据访问层
+    com.winning.sx.[业务简称].exception：异常处理
+    com.winning.sx.[业务简称].util：通用类
+四、在sx-winning-[业务简称]-web中新建Package
+    com.winning.sx.[业务简称].controller：控制层
+    com.winning.sx.[业务简称].viewmodel：页面实体层（可选，符合页面的实体，可能包括页面样式等定义）
+五、拷贝pom.xml内容
+    repositories：该节点描述私服地址
+    build：在生成依赖jar包是会用到
+六、拷贝resources配置
+    注意修改包名
+七、修改web.xml
+    注意抬头
+八、拷贝assets

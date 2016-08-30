@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="dsWebFrame" class="com.winning.dapi.data.sqlserver.SqlserverDataAccessService">
+        <constructor-arg>
+            <value>webFrame</value>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="dsWebFramework"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dsWebFramework" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--jdbc:sqlserver://192.168.160.10:1433;DatabaseName=WINNING_SSO_XTYQX  WINNING_SSO_XTYQX-->
+        <property name="url"
+                  value="jdbc:sqlserver://10.211.55.8:1433;databaseName=WINNING_SSO_XTYQX;integratedSecurity=false;"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="2"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="0"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 是否缓存（PSCache）
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        -->
+        <property name="validationQuery" value="select 1"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000"/>
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 监控数据库 -->
+        <!-- <property name="filters" value="stat" /> -->
+        <property name="filters" value="mergeStat"/>
+    </bean>
+
+    <bean id="datasourceCL" class="com.winning.dapi.data.sqlserver.SqlserverDataAccessService">
+        <constructor-arg>
+            <value>datasourceCL</value>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+                <!--jdbc:sqlserver://192.168.160.10:14331;DatabaseName=WinningCL-->
+                <property name="url"
+                          value="jdbc:sqlserver://10.211.55.8:1433;databaseName=WinningCL;integratedSecurity=false;"/>
+                <property name="username" value="sa"/>
+                <property name="password" value=""/>
+                <!-- 初始化连接大小 -->
+                <property name="initialSize" value="2"/>
+                <!-- 连接池最大使用连接数量 -->
+                <property name="maxActive" value="20"/>
+                <!-- 连接池最小空闲 -->
+                <property name="minIdle" value="0"/>
+                <!-- 获取连接最大等待时间 -->
+                <property name="maxWait" value="60000"/>
+                <!--
+                <property name="poolPreparedStatements" value="true" />
+                <property name="maxPoolPreparedStatementPerConnectionSize" value="33" />
+                -->
+                <property name="validationQuery" value="select 1"/>
+                <property name="testOnBorrow" value="false"/>
+                <property name="testOnReturn" value="false"/>
+                <property name="testWhileIdle" value="true"/>
+                <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+                <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+                <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+                <property name="minEvictableIdleTimeMillis" value="25200000"/>
+                <!-- 打开removeAbandoned功能 -->
+                <property name="removeAbandoned" value="true"/>
+                <!-- 1800秒，也就是30分钟 -->
+                <property name="removeAbandonedTimeout" value="1800"/>
+                <!-- 关闭abanded连接时输出错误日志 -->
+                <property name="logAbandoned" value="true"/>
+                <!-- 监控数据库 -->
+                <!-- <property name="filters" value="stat" /> -->
+                <property name="filters" value="mergeStat"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="mysql" class="com.winning.dapi.data.mysql.MysqlDataAccessService">
+        <constructor-arg>
+            <value>mysql</value>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+                <!-- 初始化连接大小 -->
+                <property name="initialSize" value="2"/>
+                <!-- 连接池最大使用连接数量 -->
+                <property name="maxActive" value="20"/>
+                <!-- 连接池最小空闲 -->
+                <property name="minIdle" value="0"/>
+                <!-- 获取连接最大等待时间 -->
+                <property name="maxWait" value="60000"/>
+                <!--
+                <property name="poolPreparedStatements" value="true" />
+                <property name="maxPoolPreparedStatementPerConnectionSize" value="33" />
+                -->
+                <property name="validationQuery" value="select 1"/>
+                <property name="testOnBorrow" value="false"/>
+                <property name="testOnReturn" value="false"/>
+                <property name="testWhileIdle" value="true"/>
+                <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+                <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+                <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+                <property name="minEvictableIdleTimeMillis" value="25200000"/>
+                <!-- 打开removeAbandoned功能 -->
+                <property name="removeAbandoned" value="true"/>
+                <!-- 1800秒，也就是30分钟 -->
+                <property name="removeAbandonedTimeout" value="1800"/>
+                <!-- 关闭abanded连接时输出错误日志 -->
+                <property name="logAbandoned" value="true"/>
+                <!-- 监控数据库 -->
+                <!-- <property name="filters" value="stat" /> -->
+                <property name="filters" value="mergeStat"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+
+</beans>

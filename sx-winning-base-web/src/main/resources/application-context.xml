@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 使Spring关注Annotation -->
+    <context:annotation-config/>
+
+    <!-- 让Spring通过自动扫描来查询和管理Bean -->
+    <context:component-scan base-package="com.winning.sx"/>
+
+    <!--<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">-->
+    <!--<property name="messageConverters">-->
+    <!--<list>-->
+    <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+    <!--<property name="supportedMediaTypes">-->
+    <!--<list>-->
+    <!--<value>text/plain;charset=UTF-8</value>-->
+    <!--<value>text/html;charset=UTF-8</value>-->
+    <!--<value>application/json;charset=UTF-8</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="clConsumer" class="com.winning.sx.closedloop.manage.mq.CLConsumer"-->
+    <!--init-method="init" destroy-method="destroy" scope="singleton">-->
+    <!--<property name="consumerGroup" value="CLConsumerGroup"/>-->
+    <!--<property name="namesrvAddr" value="192.168.160.11:9876;192.168.160.10:9876"/>-->
+    <!--<property name="instanceName" value="Consumer"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="clProducer" class="com.winning.sx.closedloop.manage.mq.CLProducer"-->
+    <!--init-method="init" destroy-method="destroy" scope="singleton">-->
+    <!--<property name="producerGroup" value="MyProducerGroup"/>-->
+    <!--<property name="namesrvAddr" value="127.0.0.1:9876"/>-->
+    <!--</bean>-->
+
+</beans>
